@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050914">
+  <title>DJ ONYXS | Música, ambiente y experiencia</title>
+  <style>
+    :root { --ink:#050914; --panel:rgba(10,19,39,.78); --line:rgba(111,221,255,.25); --blue:#00b8ff; --cyan:#78edff; --white:#f5fbff; --muted:#9db3c9; }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; color:var(--white); background:var(--ink); font-family:Arial,Helvetica,sans-serif; overflow-x:hidden; }
+    .page { position:relative; isolation:isolate; overflow:hidden; background:radial-gradient(circle at 15% 8%,#123b77 0,transparent 26rem),radial-gradient(circle at 84% 26%,#072958 0,transparent 30rem),linear-gradient(135deg,#030611,#071327 52%,#02040a); }
+    .page::before { content:""; position:absolute; inset:0; z-index:-2; opacity:.32; background-image:linear-gradient(rgba(107,220,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(107,220,255,.06) 1px,transparent 1px); background-size:64px 64px; mask-image:linear-gradient(to bottom,black,transparent 83%); animation:grid 18s linear infinite; }
+    .orb { position:absolute; border-radius:50%; filter:blur(4px); pointer-events:none; z-index:-1; }
+    .orb.one { width:30rem; height:30rem; background:rgba(0,166,255,.16); top:-14rem; right:-12rem; animation:float 11s ease-in-out infinite; }
+    .orb.two { width:21rem; height:21rem; background:rgba(0,97,255,.13); bottom:8rem; left:-12rem; animation:float 14s ease-in-out -4s infinite reverse; }
+    .wrap { width:min(1150px,calc(100% - 40px)); margin:auto; }
+    header { min-height:100svh; padding:clamp(32px,7vw,80px) 0 72px; display:grid; align-content:start; text-align:left; position:relative; }
+    header::after { content:""; position:absolute; z-index:-1; inset:0 -12vw 0 8%; background:linear-gradient(90deg,rgba(3,6,17,.98) 0%,rgba(3,6,17,.76) 38%,rgba(3,6,17,.06) 73%),linear-gradient(0deg,rgba(3,6,17,.96) 0%,transparent 44%),url('dj-onyxs-reference.jpeg') right top/auto 100% no-repeat; opacity:.82; mask-image:linear-gradient(to bottom,black 75%,transparent); }
+    .topline { letter-spacing:.27em; font-weight:700; font-size:clamp(.65rem,1.5vw,.82rem); color:var(--cyan); margin-bottom:clamp(18px,4vw,38px); animation:reveal .7s ease both; }
+    .logo { margin:0; font-size:clamp(3.5rem,10vw,7.8rem); line-height:.78; font-weight:900; letter-spacing:-.075em; font-style:italic; text-transform:uppercase; color:#fff; text-shadow:0 0 8px #fff,0 0 25px rgba(0,184,255,.75),0 0 74px rgba(0,114,255,.5); animation:logoIn 1s cubic-bezier(.2,.8,.2,1) both; }
+    .logo span { color:var(--blue); }
+    .tagline { margin:23px 0 0; color:#d5f7ff; font-size:clamp(.75rem,2.1vw,1.08rem); letter-spacing:clamp(.12em,1.2vw,.34em); font-weight:700; animation:reveal .8s .28s ease both; }
+    .hero-phrase { max-width:650px; margin:clamp(55px,14vw,145px) 0 16px; font-size:clamp(1.45rem,4vw,3.2rem); line-height:1.05; font-weight:800; text-transform:uppercase; animation:reveal .9s .45s ease both; }
+    .services { color:var(--cyan); font-size:clamp(.66rem,1.8vw,.9rem); letter-spacing:.16em; font-weight:bold; animation:reveal .9s .6s ease both; }
+    .scroll { position:absolute; bottom:25px; left:50%; transform:translateX(-50%); color:var(--muted); font-size:.67rem; letter-spacing:.17em; text-transform:uppercase; animation:pulse 2s infinite; }
+    section { padding:82px 0; } .section-title { text-align:center; margin:0 0 13px; color:white; font-size:clamp(1.8rem,5vw,3.45rem); line-height:1; text-transform:uppercase; } .section-title em { color:var(--blue); font-style:normal; }
+    .section-kicker { text-align:center; color:var(--muted); font-size:.82rem; letter-spacing:.15em; text-transform:uppercase; margin:0 0 39px; }
+    .plans { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .plan { position:relative; min-height:315px; padding:29px 25px; border:1px solid var(--line); border-radius:18px; background:linear-gradient(145deg,rgba(18,42,79,.78),rgba(5,11,26,.82)); overflow:hidden; transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease; }
+    .plan::before { content:""; position:absolute; width:145px;height:145px;right:-68px;top:-65px;border-radius:50%;background:rgba(0,184,255,.15);filter:blur(5px); } .plan:hover { transform:translateY(-10px); border-color:rgba(120,237,255,.85); box-shadow:0 20px 45px rgba(0,130,255,.22),inset 0 0 32px rgba(0,174,255,.06); }
+    .plan.featured { border-color:rgba(0,184,255,.76); background:linear-gradient(160deg,rgba(0,85,163,.42),rgba(5,10,25,.91)); box-shadow:0 0 35px rgba(0,160,255,.16); }
+    .badge { display:inline-block; padding:6px 10px; color:#042034; background:var(--cyan); border-radius:20px; font-size:.62rem; letter-spacing:.13em; font-weight:800; text-transform:uppercase; }
+    .plan h3 { font-size:1.6rem; margin:22px 0 6px; letter-spacing:.05em; text-transform:uppercase; } .capacity { margin:0; color:#c9eefa; font-size:.87rem; } .price { margin:33px 0 2px; font-size:clamp(1.75rem,3vw,2.3rem); line-height:1; font-weight:800; color:white; } .price small { color:var(--cyan); font-size:.64rem; vertical-align:middle; letter-spacing:.1em; text-transform:uppercase; } .hours { margin:10px 0 0; color:var(--muted); font-size:.77rem; letter-spacing:.1em; text-transform:uppercase; }
+    .notes { display:flex; justify-content:center; flex-wrap:wrap; gap:12px 25px; margin:32px auto 0; color:#b9d3e7; text-align:center; font-size:.68rem; letter-spacing:.1em; line-height:1.5; text-transform:uppercase; } .notes span::before { content:"✦"; color:var(--blue); margin-right:8px; }
+    .cta { padding-top:36px; text-align:center; } .cta-box { position:relative; padding:clamp(38px,7vw,70px) 22px; border:1px solid rgba(90,224,255,.35); border-radius:22px; overflow:hidden; background:linear-gradient(100deg,rgba(5,21,49,.82),rgba(1,83,150,.37),rgba(5,14,34,.83)); box-shadow:inset 0 0 80px rgba(0,175,255,.08); } .cta-box::before { content:""; position:absolute; inset:0; background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.12),transparent 75%); transform:translateX(-120%); animation:shine 5s ease-in-out infinite; }
+    .cta h2 { position:relative; margin:0; font-size:clamp(2rem,6vw,4.6rem); letter-spacing:-.04em; text-transform:uppercase; } .cta p { position:relative; margin:14px 0 28px; color:#d7f5ff; letter-spacing:.1em; font-size:clamp(.7rem,1.6vw,.9rem); text-transform:uppercase; }
+    .whatsapp { position:relative; display:inline-flex; align-items:center; gap:11px; padding:15px 24px; border-radius:999px; color:#fff; background:#1bc969; box-shadow:0 0 28px rgba(27,201,105,.4); font-weight:800; text-decoration:none; letter-spacing:.05em; transition:transform .25s,box-shadow .25s; } .whatsapp:hover { transform:scale(1.05); box-shadow:0 0 42px rgba(27,201,105,.72); } .whatsapp b { font-size:1.18rem; }
+    footer { padding:52px 0 32px; text-align:center; } .qualities { display:flex; justify-content:center; flex-wrap:wrap; gap:11px; margin-bottom:30px; } .quality { padding:9px 14px; border:1px solid rgba(132,216,255,.22); border-radius:99px; color:#cae2f0; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; } .socials { display:flex; justify-content:center; gap:10px; } .socials a { display:grid; place-items:center; width:38px; height:38px; border:1px solid rgba(126,229,255,.34); border-radius:50%; color:#e9fbff; font-size:.7rem; font-weight:bold; text-decoration:none; transition:.25s; } .socials a:hover { background:var(--blue); color:#001424; transform:translateY(-3px); } .fine { margin:24px 0 0; color:#71889f; font-size:.66rem; letter-spacing:.1em; }
+    .fade { opacity:0; transform:translateY(25px); } .fade.visible { animation:reveal .75s ease forwards; }
+    @keyframes reveal { to { opacity:1; transform:translateY(0); } } @keyframes logoIn { from { opacity:0; transform:scale(.75) rotate(-3deg); } to { opacity:1; transform:scale(1) rotate(-3deg); } } @keyframes float { 50% { transform:translate(35px,42px) scale(1.12); } } @keyframes grid { to { background-position:64px 64px; } } @keyframes shine { 45%,100% { transform:translateX(120%); } } @keyframes pulse { 50% { opacity:.4; transform:translate(-50%,7px); } }
+    @media (max-width:760px) { .wrap { width:min(100% - 28px,560px); } header { min-height:92svh; } header::after { inset:0 -45vw 0 -12vw; background:linear-gradient(90deg,rgba(3,6,17,.98) 0%,rgba(3,6,17,.72) 58%,rgba(3,6,17,.2)),linear-gradient(0deg,rgba(3,6,17,.96) 0%,transparent 40%),url('dj-onyxs-reference.jpeg') 67% top/auto 100% no-repeat; } .plans { grid-template-columns:1fr; gap:13px; } .plan { min-height:unset; padding:24px; } section { padding:62px 0; } .notes { gap:9px; flex-direction:column; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <i class="orb one"></i><i class="orb two"></i>
+    <header class="wrap">
+      <div class="topline">Entretenimiento para eventos privados</div>
+      <h1 class="logo">DJ <span>ONYXS</span></h1>
+      <p class="tagline">MÚSICA • AMBIENTE • EXPERIENCIA</p>
+      <div class="hero-phrase">Yo pongo la música,<br><em>tú vives el momento.</em></div>
+      <div class="services">SONIDO PROFESIONAL • ILUMINACIÓN • ACTITUD</div>
+      <div class="scroll">Descubre los planes ↓</div>
+    </header>
+    <section id="planes"><div class="wrap fade">
+      <h2 class="section-title">Planes para <em>tu evento privado</em></h2>
+      <p class="section-kicker">Elige la experiencia que tu celebración merece</p>
+      <div class="plans">
+        <article class="plan"><span class="badge">Plan 01</span><h3>Básico</h3><p class="capacity">Hasta 100 personas</p><div class="price"><small>Desde</small> ₡100.000</div><p class="hours">4 horas de experiencia</p></article>
+        <article class="plan featured"><span class="badge">Más solicitado</span><h3>Premium</h3><p class="capacity">Hasta 150 personas</p><div class="price"><small>Desde</small> ₡200.000</div><p class="hours">5 horas de experiencia</p></article>
+        <article class="plan"><span class="badge">Plan 03</span><h3>Exclusivo</h3><p class="capacity">200 personas o más</p><div class="price"><small>Desde</small> ₡350.000</div><p class="hours">7 horas de experiencia</p></article>
+      </div>
+      <div class="notes"><span>Precios sujetos a temporada</span><span>Horas adicionales disponibles</span><span>Precios en colones costarricenses</span></div>
+    </div></section>
+    <section class="cta"><div class="wrap fade"><div class="cta-box"><h2>Tu evento, mi pasión</h2><p>Hablemos y hagamos que tu celebración se recuerde</p><a class="whatsapp" href="https://wa.me/50663046047?text=Hola%20DJ%20ONYXS%2C%20quiero%20cotizar%20mi%20evento." target="_blank" rel="noopener" aria-label="Escribir a DJ ONYXS por WhatsApp"><b>◉</b> WhatsApp 6304-6047</a></div></div></section>
+    <footer class="wrap fade"><div class="qualities"><span class="quality">Puntualidad</span><span class="quality">Responsabilidad</span><span class="quality">Experiencia</span><span class="quality">100% compromiso</span></div><div class="socials" aria-label="Redes sociales"><a href="#" aria-label="Instagram (configurar enlace)">IG</a><a href="#" aria-label="Facebook (configurar enlace)">f</a><a href="#" aria-label="TikTok (configurar enlace)">TT</a></div><p class="fine">DJ ONYXS · MÚSICA PARA MOMENTOS QUE NO SE REPITEN</p></footer>
+  </main>
+  <script>
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }), {threshold:.12});
+    document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
