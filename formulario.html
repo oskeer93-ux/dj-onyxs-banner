@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DJ ONYXS | Solicitud de Servicio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#050b1a;
+    --bg-panel:#0b1730;
+    --bg-panel-2:#0f1e3d;
+    --bg-field:#0a1731;
+    --accent-blue:#2f80ff;
+    --accent-blue-light:#6ec3ff;
+    --accent-cyan:#4fd8ff;
+    --silver-1:#f4f7fb;
+    --silver-2:#a9bde0;
+    --text-primary:#eef4ff;
+    --text-muted:#7f93b8;
+    --border-blue:rgba(110,195,255,0.22);
+    --border-blue-strong:rgba(110,195,255,0.5);
+    --danger:#ff6b6b;
+    --ok-green:#1fb35a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--text-primary);
+    background:
+      linear-gradient(115deg, transparent 0%, transparent 46%, rgba(79,216,255,0.07) 47%, transparent 49%, transparent 100%),
+      linear-gradient(115deg, transparent 0%, transparent 63%, rgba(47,128,255,0.08) 64%, transparent 67%, transparent 100%),
+      linear-gradient(115deg, transparent 0%, transparent 78%, rgba(79,216,255,0.05) 79%, transparent 81%, transparent 100%),
+      radial-gradient(ellipse 700px 400px at 85% -5%, rgba(47,128,255,0.14), transparent 60%),
+      #04060c;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+  .wrap{max-width:720px;margin:0 auto;}
+
+  .brand{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:36px;}
+  .brand-mark{display:flex;align-items:center;gap:10px;}
+  .brand-mark svg{filter:drop-shadow(0 0 8px rgba(79,216,255,0.5));}
+  .brand-word{
+    font-family:'Oswald',sans-serif;font-weight:700;font-size:44px;letter-spacing:1px;line-height:1;
+    background:linear-gradient(180deg, var(--silver-1) 0%, var(--silver-2) 55%, var(--accent-blue-light) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .brand-word span{
+    background:linear-gradient(180deg, var(--accent-cyan), var(--accent-blue));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .brand-tag{margin-top:6px;font-size:12px;letter-spacing:4px;color:var(--accent-blue-light);font-weight:500;}
+  .brand-divider{width:64px;height:3px;margin:18px 0;background:linear-gradient(90deg, var(--accent-blue-light), transparent);border-radius:2px;}
+  .brand-sub{margin-top:0;font-size:14px;color:var(--text-muted);max-width:460px;}
+
+  .progress{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:32px;flex-wrap:wrap;}
+  .progress .dot{width:28px;height:4px;border-radius:2px;background:rgba(110,195,255,0.15);transition:background .25s ease;}
+  .progress .dot.done{background:linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));}
+  .progress .dot.current{background:var(--accent-blue-light);}
+  .step-label{text-align:center;font-size:12px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-bottom:28px;}
+  .step-label b{color:var(--accent-blue-light);font-weight:600;}
+
+  .card{
+    background:rgba(10,16,28,0.72);
+    border:1px solid var(--border-blue);border-radius:14px;padding:32px 28px;
+    box-shadow:0 12px 32px rgba(0,0,0,0.35);
+  }
+  .step{display:none;}
+  .step.active{display:block;animation:fadeIn .3s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  h2.step-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;letter-spacing:.5px;margin:0 0 4px;color:var(--silver-1);}
+  p.step-desc{margin:0 0 24px;font-size:13.5px;color:var(--text-muted);line-height:1.5;}
+
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-size:12.5px;font-weight:500;color:var(--accent-blue-light);margin-bottom:7px;letter-spacing:.3px;}
+  .field .req{color:var(--danger);}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:520px){.row2{grid-template-columns:1fr;}}
+
+  input[type=text],input[type=tel],input[type=email],input[type=date],input[type=time],select,textarea{
+    width:100%;background:var(--bg-field);border:1px solid var(--border-blue);border-radius:8px;padding:11px 13px;
+    font-family:'Inter',sans-serif;font-size:14px;color:var(--text-primary);outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  input::placeholder, textarea::placeholder{color:#4b5c7d;}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent-blue-light);box-shadow:0 0 0 3px rgba(110,195,255,0.15);}
+  textarea{resize:vertical;min-height:70px;}
+  select{appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%236ec3ff' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat:no-repeat;background-position:right 13px center;padding-right:34px;
+  }
+  .err{display:none;font-size:12px;color:var(--danger);margin-top:6px;}
+  .field.invalid input,.field.invalid select{border-color:var(--danger);}
+  .field.invalid .err{display:block;}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{padding:8px 14px;border-radius:20px;border:1px solid var(--border-blue);background:rgba(110,195,255,0.04);color:var(--text-muted);font-size:13px;cursor:pointer;user-select:none;transition:all .15s ease;}
+  .chip:hover{border-color:var(--border-blue-strong);color:var(--text-primary);}
+  .chip.on{background:linear-gradient(90deg, rgba(47,128,255,0.9), rgba(79,216,255,0.85));color:#04142e;font-weight:600;border-color:transparent;}
+
+  .pkgs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  @media(max-width:640px){.pkgs{grid-template-columns:1fr;}}
+  .pkg{border:1px solid var(--border-blue);border-radius:12px;padding:18px 16px;background:rgba(255,255,255,0.02);cursor:pointer;text-align:center;transition:all .15s ease;position:relative;}
+  .pkg:hover{border-color:var(--border-blue-strong);transform:translateY(-2px);}
+  .pkg.selected{border-color:var(--accent-blue-light);background:linear-gradient(180deg, rgba(47,128,255,0.14), rgba(79,216,255,0.05));box-shadow:0 0 0 1px var(--accent-blue-light), 0 8px 24px rgba(47,128,255,0.25);}
+  .pkg .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent-blue-light);color:#04142e;font-size:10.5px;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:.5px;white-space:nowrap;}
+  .pkg-level{font-size:10.5px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-top:4px;}
+  .pkg-name{font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;color:var(--silver-1);margin-top:2px;}
+  .pkg-cap{font-size:11.5px;color:var(--accent-blue-light);margin:2px 0 10px;}
+  .pkg-price{font-size:22px;font-weight:600;color:var(--text-primary);}
+  .pkg-hrs{font-size:11px;color:var(--text-muted);margin-top:2px;}
+
+  .actions{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px;}
+  button{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;border-radius:9px;padding:12px 22px;cursor:pointer;border:none;transition:all .15s ease;}
+  .btn-primary{background:linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));color:#04142e;margin-left:auto;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border-blue);}
+  .btn-ghost:hover{color:var(--text-primary);border-color:var(--border-blue-strong);}
+  .btn-ghost:disabled{opacity:0;pointer-events:none;}
+
+  .pills{display:flex;flex-wrap:wrap;gap:8px;}
+  .pill{padding:9px 15px;border-radius:8px;border:1px solid var(--border-blue);background:rgba(255,255,255,0.02);color:var(--text-muted);font-size:13px;cursor:pointer;transition:all .15s ease;}
+  .pill.on{background:rgba(47,128,255,0.16);border-color:var(--accent-blue-light);color:var(--text-primary);}
+
+  .summary-block{border:1px solid var(--border-blue);border-radius:10px;padding:16px 18px;margin-bottom:14px;}
+  .summary-block h4{margin:0 0 10px;font-size:12px;letter-spacing:1.5px;color:var(--accent-blue-light);text-transform:uppercase;}
+  .summary-row{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .summary-row:last-child{border-bottom:none;}
+  .summary-row span:first-child{color:var(--text-muted);}
+  .summary-row span:last-child{text-align:right;color:var(--text-primary);font-weight:500;}
+
+  .policy-box{border:1px solid var(--border-blue-strong);border-radius:10px;padding:16px 18px;background:rgba(47,128,255,0.06);margin-bottom:18px;}
+  .policy-box ul{margin:0;padding-left:18px;}
+  .policy-box li{font-size:13.5px;color:var(--text-primary);line-height:1.7;}
+  .policy-box li b{color:var(--accent-blue-light);}
+
+  .success{display:none;text-align:center;padding:20px 8px 4px;}
+  .success.show{display:block;}
+  .success .ok-icon{width:56px;height:56px;border-radius:50%;margin:0 auto 16px;background:linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));display:flex;align-items:center;justify-content:center;}
+  .success h3{font-family:'Oswald',sans-serif;font-size:20px;color:var(--silver-1);margin:0 0 8px;}
+  .success p{color:var(--text-muted);font-size:14px;line-height:1.6;margin:0 0 20px;}
+
+  .notify-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+  .send-status{font-size:12.5px;color:var(--accent-blue-light);margin-bottom:18px;}
+  .send-status.ok{color:var(--ok-green);}
+  .send-status.error{color:var(--danger);}
+  .whatsapp-btn,.email-btn,.agenda-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:9px;font-weight:600;font-size:13.5px;text-decoration:none;}
+  .whatsapp-btn{background:var(--ok-green);color:#fff;}
+  .email-btn{background:transparent;border:1px solid var(--border-blue-strong);color:var(--text-primary);}
+  .agenda-btn{background:linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));color:#04142e;width:100%;justify-content:center;margin-bottom:10px;}
+
+  .timeline{text-align:left;margin-top:8px;}
+  .timeline-item{display:flex;gap:14px;padding-bottom:20px;position:relative;}
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-item .line{position:absolute;left:11px;top:24px;bottom:0;width:2px;background:var(--border-blue);}
+  .timeline-item:last-child .line{display:none;}
+  .tl-dot{width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid var(--border-blue);color:var(--text-muted);z-index:1;background:var(--bg-panel);}
+  .tl-dot.active{border-color:var(--accent-blue-light);color:#04142e;background:linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));}
+  .tl-body{padding-top:1px;}
+  .tl-title{font-size:13.5px;font-weight:600;color:var(--text-primary);}
+  .tl-title.muted{color:var(--text-muted);font-weight:500;}
+  .tl-sub{font-size:12px;color:var(--text-muted);margin-top:2px;}
+
+  .reminder-note{font-size:12.5px;color:var(--accent-blue-light);text-align:center;margin-top:18px;padding:10px 14px;border:1px dashed var(--border-blue-strong);border-radius:8px;}
+
+  footer{text-align:center;margin-top:28px;font-size:11.5px;color:var(--text-muted);letter-spacing:.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div class="brand-mark">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 14V11C4 6.6 7.6 3 12 3C16.4 3 20 6.6 20 11V14" stroke="#6ec3ff" stroke-width="1.8" stroke-linecap="round"/>
+        <rect x="2.5" y="13" width="4" height="7" rx="2" stroke="#6ec3ff" stroke-width="1.8"/>
+        <rect x="17.5" y="13" width="4" height="7" rx="2" stroke="#6ec3ff" stroke-width="1.8"/>
+      </svg>
+      <div class="brand-word">DJ <span>ONYXS</span></div>
+    </div>
+    <div class="brand-tag">MÚSICA · AMBIENTE · EXPERIENCIA</div>
+    <div class="brand-divider"></div>
+    <div class="brand-sub">Nos enfocamos en fiestas privadas e íntimas, hasta 200 personas. Contanos sobre tu evento y armamos una propuesta a tu medida.</div>
+  </div>
+
+  <div class="progress" id="progress"></div>
+  <div class="step-label" id="stepLabel"></div>
+
+  <div class="card">
+
+    <form id="djForm" novalidate>
+
+      <!-- STEP 1 -->
+      <div class="step active" data-step="1">
+        <h2 class="step-title">Tus datos</h2>
+        <p class="step-desc">Para poder contactarte y enviarte la propuesta.</p>
+        <div class="field" data-field="nombre">
+          <label>Nombre completo <span class="req">*</span></label>
+          <input type="text" placeholder="Ej. María Fernández" />
+          <div class="err">Ingresá tu nombre.</div>
+        </div>
+        <div class="row2">
+          <div class="field" data-field="whatsapp">
+            <label>WhatsApp <span class="req">*</span></label>
+            <input type="tel" placeholder="8888-8888" />
+            <div class="err">Ingresá un número de contacto.</div>
+          </div>
+          <div class="field" data-field="correo">
+            <label>Correo electrónico <span class="req">*</span></label>
+            <input type="email" placeholder="nombre@correo.com" />
+            <div class="err">Ingresá un correo válido.</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Empresa / organización (si aplica)</label>
+          <input type="text" placeholder="Opcional" />
+        </div>
+        <div class="field">
+          <label>¿Cómo preferís que te contactemos para confirmar tu evento? <span class="req">*</span></label>
+          <div class="pills" data-pillgroup="contactoPref">
+            <div class="pill">WhatsApp</div>
+            <div class="pill">Correo</div>
+            <div class="pill">Llamada</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step" data-step="2">
+        <h2 class="step-title">Tu evento</h2>
+        <p class="step-desc">Trabajamos fiestas privadas de hasta 200 personas.</p>
+        <div class="field" data-field="tipoEvento">
+          <label>Tipo de evento <span class="req">*</span></label>
+          <select>
+            <option value="">Seleccioná una opción</option>
+            <option>Cumpleaños</option>
+            <option>XV años</option>
+            <option>Boda</option>
+            <option>Aniversario</option>
+            <option>Graduación</option>
+            <option>Fiesta privada</option>
+            <option>Reunión familiar</option>
+            <option>Otro</option>
+          </select>
+          <div class="err">Elegí el tipo de evento.</div>
+        </div>
+        <div class="row2">
+          <div class="field" data-field="fecha">
+            <label>Fecha del evento <span class="req">*</span></label>
+            <input type="date" />
+            <div class="err">Seleccioná una fecha.</div>
+          </div>
+          <div class="field">
+            <label>Cantidad de invitados (máx. 200)</label>
+            <select>
+              <option value="">Aprox.</option>
+              <option>Hasta 100</option>
+              <option>101–150</option>
+              <option>151–200</option>
+            </select>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Hora de inicio</label>
+            <input type="time" />
+          </div>
+          <div class="field">
+            <label>Hora de finalización</label>
+            <input type="time" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Lugar / salón / finca</label>
+          <input type="text" placeholder="Nombre del lugar" />
+        </div>
+        <div class="field">
+          <label>¿Bajo techo o al aire libre?</label>
+          <div class="pills" data-pillgroup="lugarTipo">
+            <div class="pill">Bajo techo</div>
+            <div class="pill">Al aire libre</div>
+            <div class="pill">Mixto</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step" data-step="3">
+        <h2 class="step-title">Planes para tu evento privado</h2>
+        <p class="step-desc">Escribime y armamos juntos la propuesta ideal. Precios en colones costarricenses, sujetos a temporada.</p>
+        <div class="pkgs" data-field="paquete">
+          <div class="pkg" data-pkg="Básico (hasta 100)">
+            <div class="pkg-level">Nivel 01</div>
+            <div class="pkg-name">Básico</div>
+            <div class="pkg-cap">Hasta 100 personas</div>
+            <div class="pkg-price">₡100.000</div>
+            <div class="pkg-hrs">4 horas de servicio</div>
+          </div>
+          <div class="pkg" data-pkg="Premium (hasta 150)">
+            <div class="badge">★ Más elegido</div>
+            <div class="pkg-level">Nivel 02</div>
+            <div class="pkg-name">Premium</div>
+            <div class="pkg-cap">Hasta 150 personas</div>
+            <div class="pkg-price">₡250.000</div>
+            <div class="pkg-hrs">5 horas de servicio</div>
+          </div>
+          <div class="pkg" data-pkg="Exclusivo (hasta 200)">
+            <div class="pkg-level">Nivel 03</div>
+            <div class="pkg-name">Exclusivo</div>
+            <div class="pkg-cap">Hasta 200 personas</div>
+            <div class="pkg-price">₡350.000</div>
+            <div class="pkg-hrs">5 horas de servicio</div>
+          </div>
+        </div>
+        <div class="err" id="pkgErr" style="margin-top:10px;">Seleccioná un paquete para continuar.</div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step" data-step="4">
+        <h2 class="step-title">Perfil musical</h2>
+        <p class="step-desc">Elegí los géneros que sí querés escuchar.</p>
+        <div class="field">
+          <div class="chips" data-chipgroup="generos">
+            <div class="chip">Reggaetón</div>
+            <div class="chip">Salsa</div>
+            <div class="chip">Merengue</div>
+            <div class="chip">Bachata</div>
+            <div class="chip">Cumbia</div>
+            <div class="chip">Pop</div>
+            <div class="chip">Electrónica</div>
+            <div class="chip">Rock</div>
+            <div class="chip">Música tropical</div>
+            <div class="chip">Clásicos</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Canciones imprescindibles</label>
+          <textarea placeholder="Las que definitivamente querés escuchar en tu evento"></textarea>
+        </div>
+        <div class="field">
+          <label>Describí en 3 palabras el ambiente que querés lograr</label>
+          <input type="text" placeholder="Ej. elegante, íntimo, inolvidable" />
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step" data-step="5">
+        <h2 class="step-title">Detalles especiales</h2>
+        <p class="step-desc">Esto nos ayuda a que nada se escape el día del evento.</p>
+        <div class="field">
+          <label>¿Hay algo que definitivamente NO querés que suceda en tu evento?</label>
+          <textarea placeholder="Opcional, pero muy útil"></textarea>
+        </div>
+        <div class="field">
+          <label>¿Hay alguna persona o momento especial que debamos considerar?</label>
+          <textarea placeholder="Ej. sorpresa, homenaje, protocolo particular"></textarea>
+        </div>
+      </div>
+
+      <!-- STEP 6: POLICY -->
+      <div class="step" data-step="6">
+        <h2 class="step-title">Condiciones de reserva y pago</h2>
+        <p class="step-desc">Leé con atención antes de continuar.</p>
+        <div class="policy-box">
+          <ul>
+            <li>Completar este formulario <b>no asegura la reserva</b> de tu fecha.</li>
+            <li>La fecha queda confirmada únicamente con un <b>anticipo del 25% del monto total del servicio</b>.</li>
+            <li>Ese anticipo <b>no es devolutivo</b> (no reembolsable) una vez confirmado.</li>
+            <li>Aceptamos pagos en <b>colones y dólares</b>, mediante <b>SINPE Móvil</b> u otro medio que acordemos.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <label>Método de pago de tu preferencia</label>
+          <select>
+            <option value="">Seleccioná una opción</option>
+            <option>SINPE Móvil</option>
+            <option>Transferencia en colones</option>
+            <option>Transferencia en dólares</option>
+            <option>Efectivo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>¿Cada cuánto querés recibir recordatorios sobre tu evento?</label>
+          <div class="pills" data-pillgroup="frecuencia">
+            <div class="pill">Semanal</div>
+            <div class="pill">Mensual</div>
+          </div>
+        </div>
+        <div class="field" data-field="aceptaPolitica" style="margin-top:6px;">
+          <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-weight:400;">
+            <input type="checkbox" id="policyCheck" style="width:auto;margin-top:3px;" />
+            <span style="font-size:12.5px;color:var(--text-muted);font-weight:400;">
+              Leí y acepto las condiciones de reserva y el anticipo no devolutivo del 25%.
+            </span>
+          </label>
+          <div class="err">Marcá la casilla para continuar.</div>
+        </div>
+      </div>
+
+      <!-- STEP 7: SUMMARY -->
+      <div class="step" data-step="7">
+        <h2 class="step-title">Revisá tu solicitud</h2>
+        <p class="step-desc">Confirmá que todo esté correcto antes de enviarla.</p>
+        <div id="summaryContent"></div>
+        <div class="field" style="margin-top:6px;">
+          <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;">
+            <input type="checkbox" id="confirmCheck" style="width:auto;margin-top:3px;" />
+            <span style="font-size:12.5px;color:var(--text-muted);font-weight:400;">
+              Confirmo que la información es correcta.
+            </span>
+          </label>
+          <div class="err" id="confirmErr">Marcá la casilla para enviar tu solicitud.</div>
+        </div>
+      </div>
+
+      <div class="success" id="successBlock">
+        <div class="ok-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 12.5L10 17.5L19 7.5" stroke="#04142e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>¡Solicitud recibida!</h3>
+        <p>Tu solicitud completa se está enviando automáticamente a nuestro correo, y se abre WhatsApp con el mensaje ya listo para confirmarte por ese medio.</p>
+        <div class="send-status" id="sendStatus">Enviando tu solicitud…</div>
+
+        <div class="notify-row">
+          <a class="whatsapp-btn" id="waLink" href="#" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.7 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.5.8 1.9.8 2 .1.2.1.4 0 .6-.1.2-.2.3-.3.5l-.5.5c-.2.2-.3.4-.1.7.1.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.4.3.1.5.1.6-.1l.9-1c.2-.3.5-.2.8-.1l1.8.9c.2.1.4.2.5.3.1.2.1.9-.1 1.6Z"/></svg>
+            No se abrió — enviar por WhatsApp
+          </a>
+          <a class="email-btn" id="emailLink" href="#">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#eef4ff" stroke-width="1.8"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+            Enviar por correo también
+          </a>
+        </div>
+
+        <a class="agenda-btn" id="agendaLink" href="#agenda-pendiente" target="_blank" rel="noopener">Ver disponibilidad y agendar</a>
+
+        <div class="timeline" id="timelineContent"></div>
+        <div class="reminder-note" id="reminderNote"></div>
+      </div>
+
+      <div class="actions" id="actionsRow">
+        <button type="button" class="btn-ghost" id="backBtn">Atrás</button>
+        <button type="button" class="btn-primary" id="nextBtn">Continuar</button>
+      </div>
+
+    </form>
+  </div>
+
+  <footer>DJ ONYXS · SONIDO PROFESIONAL · ILUMINACIÓN · ACTITUD</footer>
+</div>
+
+<script>
+const AGENDA_URL = "#agenda-pendiente";
+const BUSINESS_WHATSAPP = "50663046047";
+const BUSINESS_EMAIL = "reservas@djonyxs.com";
+// Reemplazá esto por tu endpoint real de Formspree (formspree.io) para que el correo
+// se envíe automáticamente sin depender de un cliente de correo abierto.
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/TU_ID_AQUI";
+
+const totalSteps = 7;
+let current = 1;
+const stepLabels = ["Tus datos","Tu evento","Tu paquete","Perfil musical","Detalles especiales","Reserva y pago","Revisión"];
+const formEl = document.getElementById('djForm');
+const nextBtn = document.getElementById('nextBtn');
+const backBtn = document.getElementById('backBtn');
+const progressEl = document.getElementById('progress');
+const stepLabelEl = document.getElementById('stepLabel');
+let selectedPkg = null;
+const selectedChips = { generos: [] };
+const selectedPill = { lugarTipo: null, contactoPref: null, frecuencia: null };
+
+function buildProgress(){
+  progressEl.innerHTML = '';
+  for(let i=1;i<=totalSteps;i++){
+    const d = document.createElement('div');
+    d.className = 'dot' + (i < current ? ' done' : i === current ? ' current' : '');
+    progressEl.appendChild(d);
+  }
+  stepLabelEl.innerHTML = 'Paso ' + current + ' de ' + totalSteps + ' — <b>' + stepLabels[current-1] + '</b>';
+}
+
+function showStep(n){
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.querySelector('.step[data-step="'+n+'"]').classList.add('active');
+  backBtn.disabled = n === 1;
+  nextBtn.textContent = n === totalSteps ? 'Enviar solicitud' : 'Continuar';
+  buildProgress();
+  if(n === totalSteps){ buildSummary(); }
+}
+
+function clearError(field){ field.classList.remove('invalid'); }
+function markError(field){ field.classList.add('invalid'); }
+
+function validateStep(n){
+  let ok = true;
+  if(n === 1){
+    ['nombre','whatsapp','correo'].forEach(name => {
+      const field = document.querySelector('.step[data-step="1"] [data-field="'+name+'"]');
+      const input = field.querySelector('input');
+      if(!input.value.trim()){ markError(field); ok = false; } else { clearError(field); }
+    });
+  }
+  if(n === 2){
+    const tipo = document.querySelector('.step[data-step="2"] [data-field="tipoEvento"]');
+    const fecha = document.querySelector('.step[data-step="2"] [data-field="fecha"]');
+    if(!tipo.querySelector('select').value){ markError(tipo); ok = false; } else { clearError(tipo); }
+    if(!fecha.querySelector('input').value){ markError(fecha); ok = false; } else { clearError(fecha); }
+  }
+  if(n === 3){
+    const err = document.getElementById('pkgErr');
+    if(!selectedPkg){ err.style.display = 'block'; ok = false; } else { err.style.display = 'none'; }
+  }
+  if(n === 6){
+    const field = document.querySelector('.step[data-step="6"] [data-field="aceptaPolitica"]');
+    const check = document.getElementById('policyCheck');
+    if(!check.checked){ markError(field); ok = false; } else { clearError(field); }
+  }
+  if(n === 7){
+    const check = document.getElementById('confirmCheck');
+    const err = document.getElementById('confirmErr');
+    if(!check.checked){ err.style.display = 'block'; ok = false; } else { err.style.display = 'none'; }
+  }
+  return ok;
+}
+
+function dash(v){ return v ? v : '—'; }
+
+function collectData(){
+  return {
+    nombre: document.querySelector('.step[data-step="1"] [data-field="nombre"] input').value,
+    whatsapp: document.querySelector('.step[data-step="1"] [data-field="whatsapp"] input').value,
+    correo: document.querySelector('.step[data-step="1"] [data-field="correo"] input').value,
+    empresa: document.querySelectorAll('.step[data-step="1"] input')[3].value,
+    contactoPref: selectedPill.contactoPref,
+    tipoEvento: document.querySelector('.step[data-step="2"] select').value,
+    fecha: document.querySelector('.step[data-step="2"] [data-field="fecha"] input').value,
+    invitados: document.querySelectorAll('.step[data-step="2"] select')[1].value,
+    inicio: document.querySelectorAll('.step[data-step="2"] input[type=time]')[0].value,
+    fin: document.querySelectorAll('.step[data-step="2"] input[type=time]')[1].value,
+    lugar: document.querySelectorAll('.step[data-step="2"] input[type=text]')[0].value,
+    lugarTipo: selectedPill.lugarTipo,
+    paquete: selectedPkg,
+    generos: selectedChips.generos,
+    canciones: document.querySelector('.step[data-step="4"] textarea').value,
+    ambiente: document.querySelector('.step[data-step="4"] input[type=text]').value,
+    noQuiere: document.querySelectorAll('.step[data-step="5"] textarea')[0].value,
+    especial: document.querySelectorAll('.step[data-step="5"] textarea')[1].value,
+    metodoPago: document.querySelector('.step[data-step="6"] select').value,
+    frecuencia: selectedPill.frecuencia
+  };
+}
+
+function buildSummary(){
+  const d = collectData();
+  document.getElementById('summaryContent').innerHTML = `
+    <div class="summary-block">
+      <h4>Contacto</h4>
+      <div class="summary-row"><span>Nombre</span><span>${dash(d.nombre)}</span></div>
+      <div class="summary-row"><span>WhatsApp</span><span>${dash(d.whatsapp)}</span></div>
+      <div class="summary-row"><span>Correo</span><span>${dash(d.correo)}</span></div>
+      <div class="summary-row"><span>Prefiere que lo contacten por</span><span>${dash(d.contactoPref)}</span></div>
+    </div>
+    <div class="summary-block">
+      <h4>Evento</h4>
+      <div class="summary-row"><span>Tipo</span><span>${dash(d.tipoEvento)}</span></div>
+      <div class="summary-row"><span>Fecha</span><span>${dash(d.fecha)}</span></div>
+      <div class="summary-row"><span>Horario</span><span>${d.inicio||'—'} a ${d.fin||'—'}</span></div>
+      <div class="summary-row"><span>Invitados</span><span>${dash(d.invitados)}</span></div>
+      <div class="summary-row"><span>Lugar</span><span>${dash(d.lugar)}</span></div>
+      <div class="summary-row"><span>Ambiente del lugar</span><span>${dash(d.lugarTipo)}</span></div>
+    </div>
+    <div class="summary-block">
+      <h4>Servicio</h4>
+      <div class="summary-row"><span>Paquete</span><span>${dash(d.paquete)}</span></div>
+      <div class="summary-row"><span>Géneros</span><span>${d.generos.length ? d.generos.join(', ') : '—'}</span></div>
+      <div class="summary-row"><span>Canciones clave</span><span>${dash(d.canciones)}</span></div>
+      <div class="summary-row"><span>En 3 palabras</span><span>${dash(d.ambiente)}</span></div>
+    </div>
+    <div class="summary-block">
+      <h4>Reserva y pago</h4>
+      <div class="summary-row"><span>Método de pago</span><span>${dash(d.metodoPago)}</span></div>
+      <div class="summary-row"><span>Recordatorios</span><span>${dash(d.frecuencia)}</span></div>
+    </div>
+    <div class="summary-block">
+      <h4>Detalles especiales</h4>
+      <div class="summary-row"><span>No debe suceder</span><span>${dash(d.noQuiere)}</span></div>
+      <div class="summary-row"><span>Momento especial</span><span>${dash(d.especial)}</span></div>
+    </div>
+  `;
+}
+
+function buildNotifyLinks(){
+  const d = collectData();
+  const text = `SOLICITUD DE EVENTO - DJ ONYXS
+——————————————
+CONTACTO
+Nombre: ${d.nombre}
+WhatsApp: ${d.whatsapp}
+Correo: ${d.correo}
+Empresa: ${d.empresa || '-'}
+Prefiere ser contactado por: ${d.contactoPref || 'no indicado'}
+
+EVENTO
+Tipo: ${d.tipoEvento}
+Fecha: ${d.fecha}
+Horario: ${d.inicio || '-'} a ${d.fin || '-'}
+Invitados: ${d.invitados}
+Lugar: ${d.lugar} (${d.lugarTipo || 'no indicado'})
+
+SERVICIO
+Paquete: ${d.paquete}
+Géneros musicales: ${d.generos.length ? d.generos.join(', ') : '-'}
+Canciones imprescindibles: ${d.canciones || '-'}
+Ambiente en 3 palabras: ${d.ambiente || '-'}
+
+DETALLES ESPECIALES
+No debe suceder: ${d.noQuiere || '-'}
+Momento especial: ${d.especial || '-'}
+
+RESERVA Y PAGO
+Método de pago preferido: ${d.metodoPago || 'no indicado'}
+Frecuencia de recordatorios: ${d.frecuencia || 'no indicado'}
+Recordatorio: la reserva se asegura solo con el 25% de anticipo, no devolutivo.
+——————————————`;
+
+  document.getElementById('waLink').href = 'https://wa.me/' + BUSINESS_WHATSAPP + '?text=' + encodeURIComponent(text);
+  document.getElementById('emailLink').href = 'mailto:' + BUSINESS_EMAIL + '?subject=' + encodeURIComponent('Solicitud de evento - ' + d.nombre) + '&body=' + encodeURIComponent(text);
+  document.getElementById('agendaLink').href = AGENDA_URL;
+
+  const freqLabel = d.frecuencia === 'Mensual' ? 'mensual' : 'semanal';
+  const nextIn = d.frecuencia === 'Mensual' ? 'en 1 mes' : 'en 7 días';
+
+  document.getElementById('timelineContent').innerHTML = `
+    <div class="timeline-item">
+      <div class="line"></div>
+      <div class="tl-dot active">1</div>
+      <div class="tl-body"><div class="tl-title">Solicitud recibida</div><div class="tl-sub">Hoy</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="line"></div>
+      <div class="tl-dot">2</div>
+      <div class="tl-body"><div class="tl-title muted">Contacto por ${d.contactoPref || 'el medio preferido'}</div><div class="tl-sub">En proceso</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="line"></div>
+      <div class="tl-dot">3</div>
+      <div class="tl-body"><div class="tl-title muted">Cotización enviada</div><div class="tl-sub">Pendiente</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="line"></div>
+      <div class="tl-dot">4</div>
+      <div class="tl-body"><div class="tl-title muted">Anticipo del 25% (no devolutivo)</div><div class="tl-sub">Pendiente</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="line"></div>
+      <div class="tl-dot">5</div>
+      <div class="tl-body"><div class="tl-title muted">Fecha confirmada</div><div class="tl-sub">Pendiente</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-dot">6</div>
+      <div class="tl-body"><div class="tl-title muted">Recordatorios ${freqLabel} hasta el evento</div><div class="tl-sub">Pendiente</div></div>
+    </div>
+  `;
+  document.getElementById('reminderNote').textContent = 'Próximo recordatorio estimado: ' + nextIn + ' (cadencia ' + freqLabel + ').';
+  return text;
+}
+
+async function sendEmailAutomatico(d, text){
+  const statusEl = document.getElementById('sendStatus');
+  if(FORMSPREE_ENDPOINT.includes('TU_ID_AQUI')){
+    statusEl.textContent = 'Falta conectar el correo automático (endpoint de Formspree pendiente).';
+    statusEl.className = 'send-status error';
+    return;
+  }
+  try{
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new URLSearchParams({
+        nombre: d.nombre, whatsapp: d.whatsapp, correo: d.correo,
+        _subject: 'Solicitud de evento - ' + d.nombre,
+        mensaje: text
+      })
+    });
+    if(res.ok){
+      statusEl.textContent = '✓ Solicitud enviada automáticamente a nuestro correo.';
+      statusEl.className = 'send-status ok';
+    } else {
+      statusEl.textContent = 'No se pudo enviar el correo automático — usá el botón de respaldo.';
+      statusEl.className = 'send-status error';
+    }
+  } catch(e){
+    statusEl.textContent = 'No se pudo enviar el correo automático — usá el botón de respaldo.';
+    statusEl.className = 'send-status error';
+  }
+}
+
+nextBtn.addEventListener('click', () => {
+  if(!validateStep(current)) return;
+  if(current === totalSteps){
+    formEl.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+    document.getElementById('successBlock').classList.add('show');
+    document.getElementById('actionsRow').style.display = 'none';
+    document.getElementById('progress').style.display = 'none';
+    document.getElementById('stepLabel').style.display = 'none';
+
+    const d = collectData();
+    const text = buildNotifyLinks();
+    sendEmailAutomatico(d, text);
+    window.open(document.getElementById('waLink').href, '_blank');
+    return;
+  }
+  current++;
+  showStep(current);
+});
+
+backBtn.addEventListener('click', () => {
+  if(current === 1) return;
+  current--;
+  showStep(current);
+});
+
+document.querySelectorAll('.pkg').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.pkg').forEach(x => x.classList.remove('selected'));
+    p.classList.add('selected');
+    selectedPkg = p.getAttribute('data-pkg');
+    document.getElementById('pkgErr').style.display = 'none';
+  });
+});
+
+document.querySelectorAll('[data-chipgroup="generos"] .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    c.classList.toggle('on');
+    const label = c.textContent.trim();
+    const i = selectedChips.generos.indexOf(label);
+    if(c.classList.contains('on') && i === -1) selectedChips.generos.push(label);
+    if(!c.classList.contains('on') && i > -1) selectedChips.generos.splice(i,1);
+  });
+});
+
+document.querySelectorAll('[data-pillgroup="lugarTipo"] .pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('[data-pillgroup="lugarTipo"] .pill').forEach(x => x.classList.remove('on'));
+    p.classList.add('on');
+    selectedPill.lugarTipo = p.textContent.trim();
+  });
+});
+
+document.querySelectorAll('[data-pillgroup="contactoPref"] .pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('[data-pillgroup="contactoPref"] .pill').forEach(x => x.classList.remove('on'));
+    p.classList.add('on');
+    selectedPill.contactoPref = p.textContent.trim();
+  });
+});
+
+document.querySelectorAll('[data-pillgroup="frecuencia"] .pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('[data-pillgroup="frecuencia"] .pill').forEach(x => x.classList.remove('on'));
+    p.classList.add('on');
+    selectedPill.frecuencia = p.textContent.trim();
+  });
+});
+
+buildProgress();
+</script>
+</body>
+</html>
