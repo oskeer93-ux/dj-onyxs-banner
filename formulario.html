@@ -236,18 +236,19 @@
         <p class="step-desc">Trabajamos fiestas privadas de hasta 200 personas.</p>
         <div class="field" data-field="tipoEvento">
           <label>Tipo de evento <span class="req">*</span></label>
-          <select>
+          <select id="tipoEventoSelect">
             <option value="">Seleccioná una opción</option>
             <option>Cumpleaños</option>
-            <option>XV años</option>
-            <option>Boda</option>
-            <option>Aniversario</option>
-            <option>Graduación</option>
             <option>Fiesta privada</option>
             <option>Reunión familiar</option>
             <option>Otro</option>
           </select>
           <div class="err">Elegí el tipo de evento.</div>
+        </div>
+        <div class="field" id="tipoEventoOtroWrap" style="display:none;">
+          <label>Detallá el tipo de evento <span class="req">*</span></label>
+          <input type="text" id="tipoEventoOtroInput" placeholder="Ej. despedida de soltera, evento institucional..." />
+          <div class="err">Contanos de qué tipo de evento se trata.</div>
         </div>
         <div class="row2">
           <div class="field" data-field="fecha">
@@ -533,6 +534,11 @@ function validateStep(n){
     const fecha = document.querySelector('.step[data-step="2"] [data-field="fecha"]');
     if(!tipo.querySelector('select').value){ markError(tipo); ok = false; } else { clearError(tipo); }
     if(!fecha.querySelector('input').value){ markError(fecha); ok = false; } else { clearError(fecha); }
+    if(document.getElementById('tipoEventoSelect').value === 'Otro'){
+      const otroWrap = document.getElementById('tipoEventoOtroWrap');
+      const otroInput = document.getElementById('tipoEventoOtroInput');
+      if(!otroInput.value.trim()){ otroWrap.classList.add('invalid'); ok = false; } else { otroWrap.classList.remove('invalid'); }
+    }
   }
   if(n === 3){
     const err = document.getElementById('pkgErr');
@@ -565,7 +571,11 @@ function collectData(){
     correo: document.querySelector('.step[data-step="1"] [data-field="correo"] input').value,
     empresa: document.querySelectorAll('.step[data-step="1"] input')[3].value,
     contactoPref: selectedPill.contactoPref,
-    tipoEvento: document.querySelector('.step[data-step="2"] select').value,
+    tipoEvento: (function(){
+      const sel = document.getElementById('tipoEventoSelect').value;
+      const otro = document.getElementById('tipoEventoOtroInput').value.trim();
+      return sel === 'Otro' && otro ? ('Otro — ' + otro) : sel;
+    })(),
     fecha: document.querySelector('.step[data-step="2"] [data-field="fecha"] input').value,
     invitados: document.querySelectorAll('.step[data-step="2"] select')[1].value,
     inicio: document.querySelectorAll('.step[data-step="2"] input[type=time]')[0].value,
@@ -797,6 +807,12 @@ document.querySelectorAll('[data-pillgroup="frecuencia"] .pill').forEach(p => {
     p.classList.add('on');
     selectedPill.frecuencia = p.textContent.trim();
   });
+});
+
+document.getElementById('tipoEventoSelect').addEventListener('change', (e) => {
+  const wrap = document.getElementById('tipoEventoOtroWrap');
+  wrap.style.display = e.target.value === 'Otro' ? 'block' : 'none';
+  if(e.target.value !== 'Otro'){ wrap.classList.remove('invalid'); }
 });
 
 buildProgress();
