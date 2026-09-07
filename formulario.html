@@ -402,8 +402,31 @@
         </div>
       </div>
 
-      <!-- STEP 7: SUMMARY -->
+      <!-- STEP 7: PRIVACY POLICY -->
       <div class="step" data-step="7">
+        <h2 class="step-title">Política de privacidad</h2>
+        <p class="step-desc">Antes de enviar tu solicitud, leé cómo usamos tu información.</p>
+        <div class="policy-box">
+          <ul>
+            <li>Los datos que compartís en este formulario son de <b>uso exclusivo de DJ ONYXS</b>.</li>
+            <li>Se usan únicamente para <b>darle seguimiento a tu solicitud</b> y coordinar el servicio para tu evento.</li>
+            <li>Tu información <b>no se comparte ni se vende</b> a terceros bajo ninguna circunstancia.</li>
+            <li>Los datos se manejan de forma <b>privada y confidencial</b>, solo entre vos y DJ ONYXS.</li>
+          </ul>
+        </div>
+        <div class="field" data-field="aceptaPrivacidad">
+          <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-weight:400;">
+            <input type="checkbox" id="privacyCheck" style="width:auto;margin-top:3px;" />
+            <span style="font-size:12.5px;color:var(--text-muted);font-weight:400;">
+              He leído y acepto la Política de Privacidad y los Términos &amp; Condiciones de <b style="color:var(--text-primary);">DJ ONYXS</b>.
+            </span>
+          </label>
+          <div class="err">Marcá la casilla para continuar.</div>
+        </div>
+      </div>
+
+      <!-- STEP 8: SUMMARY -->
+      <div class="step" data-step="8">
         <h2 class="step-title">Revisá tu solicitud</h2>
         <p class="step-desc">Confirmá que todo esté correcto antes de enviarla.</p>
         <div id="summaryContent"></div>
@@ -462,9 +485,9 @@ const BUSINESS_EMAIL = "reservas@djonyxs.com";
 // se envíe automáticamente sin depender de un cliente de correo abierto.
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/TU_ID_AQUI";
 
-const totalSteps = 7;
+const totalSteps = 8;
 let current = 1;
-const stepLabels = ["Tus datos","Tu evento","Tu paquete","Perfil musical","Detalles especiales","Reserva y pago","Revisión"];
+const stepLabels = ["Tus datos","Tu evento","Tu paquete","Perfil musical","Detalles especiales","Reserva y pago","Privacidad","Revisión"];
 const formEl = document.getElementById('djForm');
 const nextBtn = document.getElementById('nextBtn');
 const backBtn = document.getElementById('backBtn');
@@ -521,6 +544,11 @@ function validateStep(n){
     if(!check.checked){ markError(field); ok = false; } else { clearError(field); }
   }
   if(n === 7){
+    const field = document.querySelector('.step[data-step="7"] [data-field="aceptaPrivacidad"]');
+    const check = document.getElementById('privacyCheck');
+    if(!check.checked){ markError(field); ok = false; } else { clearError(field); }
+  }
+  if(n === 8){
     const check = document.getElementById('confirmCheck');
     const err = document.getElementById('confirmErr');
     if(!check.checked){ err.style.display = 'block'; ok = false; } else { err.style.display = 'none'; }
@@ -551,7 +579,8 @@ function collectData(){
     noQuiere: document.querySelectorAll('.step[data-step="5"] textarea')[0].value,
     especial: document.querySelectorAll('.step[data-step="5"] textarea')[1].value,
     metodoPago: document.querySelector('.step[data-step="6"] select').value,
-    frecuencia: selectedPill.frecuencia
+    frecuencia: selectedPill.frecuencia,
+    aceptaPrivacidad: document.getElementById('privacyCheck') ? document.getElementById('privacyCheck').checked : false
   };
 }
 
@@ -585,6 +614,7 @@ function buildSummary(){
       <h4>Reserva y pago</h4>
       <div class="summary-row"><span>Método de pago</span><span>${dash(d.metodoPago)}</span></div>
       <div class="summary-row"><span>Recordatorios</span><span>${dash(d.frecuencia)}</span></div>
+      <div class="summary-row"><span>Política de privacidad</span><span>${d.aceptaPrivacidad ? 'Aceptada' : '—'}</span></div>
     </div>
     <div class="summary-block">
       <h4>Detalles especiales</h4>
@@ -626,6 +656,7 @@ RESERVA Y PAGO
 Método de pago preferido: ${d.metodoPago || 'no indicado'}
 Frecuencia de recordatorios: ${d.frecuencia || 'no indicado'}
 Recordatorio: la reserva se asegura solo con el 25% de anticipo, no devolutivo.
+Política de privacidad aceptada: ${d.aceptaPrivacidad ? 'Sí' : 'No'}
 ——————————————`;
 
   document.getElementById('waLink').href = 'https://wa.me/' + BUSINESS_WHATSAPP + '?text=' + encodeURIComponent(text);
