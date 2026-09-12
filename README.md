@@ -1,2 +1,6 @@
-# dj-onyxs-banner
-Banner profesional de DJ ONYXS para eventos privados.
+dj-onyxs-central-produccion/
+│
+├── index.html          ← IMPORTANTE
+├── README.md
+├── ROADMAP.md
+└── .gitignore
