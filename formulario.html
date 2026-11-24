@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DJ ONYXS | Solicitud de Servicio</title>
+<title>DJ ONYX | Solicitud de Servicio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -181,7 +181,7 @@
         <rect x="2.5" y="13" width="4" height="7" rx="2" stroke="#6ec3ff" stroke-width="1.8"/>
         <rect x="17.5" y="13" width="4" height="7" rx="2" stroke="#6ec3ff" stroke-width="1.8"/>
       </svg>
-      <div class="brand-word">DJ <span>ONYXS</span></div>
+      <div class="brand-word">DJ <span>ONYX</span></div>
     </div>
     <div class="brand-tag">MÚSICA · AMBIENTE · EXPERIENCIA</div>
     <div class="brand-divider"></div>
@@ -409,17 +409,17 @@
         <p class="step-desc">Antes de enviar tu solicitud, leé cómo usamos tu información.</p>
         <div class="policy-box">
           <ul>
-            <li>Los datos que compartís en este formulario son de <b>uso exclusivo de DJ ONYXS</b>.</li>
+            <li>Los datos que compartís en este formulario son de <b>uso exclusivo de DJ ONYX</b>.</li>
             <li>Se usan únicamente para <b>darle seguimiento a tu solicitud</b> y coordinar el servicio para tu evento.</li>
             <li>Tu información <b>no se comparte ni se vende</b> a terceros bajo ninguna circunstancia.</li>
-            <li>Los datos se manejan de forma <b>privada y confidencial</b>, solo entre vos y DJ ONYXS.</li>
+            <li>Los datos se manejan de forma <b>privada y confidencial</b>, solo entre vos y DJ ONYX.</li>
           </ul>
         </div>
         <div class="field" data-field="aceptaPrivacidad">
           <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-weight:400;">
             <input type="checkbox" id="privacyCheck" style="width:auto;margin-top:3px;" />
             <span style="font-size:12.5px;color:var(--text-muted);font-weight:400;">
-              He leído y acepto la Política de Privacidad y los Términos &amp; Condiciones de <b style="color:var(--text-primary);">DJ ONYXS</b>.
+              He leído y acepto la Política de Privacidad y los Términos &amp; Condiciones de <b style="color:var(--text-primary);">DJ ONYX</b>.
             </span>
           </label>
           <div class="err">Marcá la casilla para continuar.</div>
@@ -475,7 +475,7 @@
     </form>
   </div>
 
-  <footer>DJ ONYXS · SONIDO PROFESIONAL · ILUMINACIÓN · ACTITUD</footer>
+  <footer>DJ ONYX · SONIDO PROFESIONAL · ILUMINACIÓN · ACTITUD</footer>
 </div>
 
 <script>
@@ -635,7 +635,7 @@ function buildSummary(){
 
 function buildNotifyLinks(){
   const d = collectData();
-  const text = `SOLICITUD DE EVENTO - DJ ONYXS
+  const text = `SOLICITUD DE EVENTO - DJ ONYX
 ——————————————
 CONTACTO
 Nombre: ${d.nombre}
@@ -648,8 +648,8 @@ EVENTO
 Tipo: ${d.tipoEvento}
 Fecha: ${d.fecha}
 Horario: ${d.inicio || '-'} a ${d.fin || '-'}
-Invitados: ${d.invitados}
-Lugar: ${d.lugar} (${d.lugarTipo || 'no indicado'})
+Invitados: ${d.invitados || '-'}
+Lugar: ${d.lugar || '-'} (${d.lugarTipo || 'no indicado'})
 
 SERVICIO
 Paquete: ${d.paquete}
@@ -675,7 +675,7 @@ Política de privacidad aceptada: ${d.aceptaPrivacidad ? 'Sí' : 'No'}
     agendaEl.href = AGENDA_URL;
     agendaEl.textContent = 'Ver disponibilidad y agendar';
   } else {
-    const msg = 'Hola DJ ONYXS, quiero consultar disponibilidad para el ' + (d.fecha || 'día de mi evento') + '.';
+    const msg = 'Hola DJ ONYX, quiero consultar disponibilidad para el ' + (d.fecha || 'día de mi evento') + '.';
     agendaEl.href = 'https://wa.me/' + BUSINESS_WHATSAPP + '?text=' + encodeURIComponent(msg);
   }
 
@@ -719,17 +719,38 @@ Política de privacidad aceptada: ${d.aceptaPrivacidad ? 'Sí' : 'No'}
 
 async function sendEmailAutomatico(d, text){
   const statusEl = document.getElementById('sendStatus');
+  const v = x => (x && String(x).trim()) ? x : '—';
+  const payload = {
+    _subject: '🎧 Nueva solicitud DJ ONYX · ' + v(d.tipoEvento) + ' · ' + v(d.fecha) + ' · ' + d.nombre,
+    _template: 'table',
+    _captcha: 'false',
+    _autoresponse: 'Hola ' + d.nombre + ', ¡gracias por escribirle a DJ ONYX! Recibimos tu solicitud para tu ' + v(d.tipoEvento).toLowerCase() + ' del ' + v(d.fecha) + '. Te vamos a contactar por ' + (d.contactoPref || 'el medio que preferiste') + ' para revisar disponibilidad y enviarte la cotización. Recordá que la fecha queda asegurada únicamente con un anticipo del 25% del monto del servicio, no devolutivo (aceptamos colones, dólares y SINPE Móvil). — DJ ONYX · Música · Ambiente · Experiencia · WhatsApp 6304-6047',
+    '1. Cliente': d.nombre,
+    '2. WhatsApp': d.whatsapp,
+    'email': d.correo,
+    '3. Empresa': v(d.empresa),
+    '4. Contactar por': v(d.contactoPref),
+    '5. Tipo de evento': v(d.tipoEvento),
+    '6. Fecha': v(d.fecha),
+    '7. Horario': (d.inicio || '—') + ' a ' + (d.fin || '—'),
+    '8. Invitados': v(d.invitados),
+    '9. Lugar': v(d.lugar) + (d.lugarTipo ? ' (' + d.lugarTipo + ')' : ''),
+    '10. Paquete': v(d.paquete),
+    '11. Géneros': d.generos && d.generos.length ? d.generos.join(', ') : '—',
+    '12. Canciones imprescindibles': v(d.canciones),
+    '13. Ambiente en 3 palabras': v(d.ambiente),
+    '14. NO debe suceder': v(d.noQuiere),
+    '15. Momento especial': v(d.especial),
+    '16. Método de pago': v(d.metodoPago),
+    '17. Recordatorios': v(d.frecuencia),
+    '18. Política de privacidad': d.aceptaPrivacidad ? 'Aceptada' : 'No aceptada',
+    '19. Anticipo': '25% no devolutivo — la fecha no se asegura sin pago'
+  };
   try{
     const res = await fetch(FORM_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        _subject: 'Solicitud de evento - ' + d.nombre,
-        _template: 'box',
-        _captcha: 'false',
-        nombre: d.nombre, whatsapp: d.whatsapp, correo: d.correo,
-        mensaje: text
-      })
+      body: JSON.stringify(payload)
     });
     if(res.ok){
       statusEl.textContent = '✓ Solicitud enviada automáticamente a nuestro correo.';
