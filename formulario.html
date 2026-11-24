@@ -461,7 +461,7 @@
           </a>
         </div>
 
-        <a class="agenda-btn" id="agendaLink" href="#agenda-pendiente" target="_blank" rel="noopener">Ver disponibilidad y agendar</a>
+        <a class="agenda-btn" id="agendaLink" href="#agenda-pendiente" target="_blank" rel="noopener">Consultar disponibilidad por WhatsApp</a>
 
         <div class="timeline" id="timelineContent"></div>
         <div class="reminder-note" id="reminderNote"></div>
@@ -481,10 +481,9 @@
 <script>
 const AGENDA_URL = "#agenda-pendiente";
 const BUSINESS_WHATSAPP = "50663046047";
-const BUSINESS_EMAIL = "reservas@djonyxs.com";
-// Reemplazá esto por tu endpoint real de Formspree (formspree.io) para que el correo
-// se envíe automáticamente sin depender de un cliente de correo abierto.
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/TU_ID_AQUI";
+const BUSINESS_EMAIL = "rsoscar9339@gmail.com";
+// Envío automático de correo vía FormSubmit (gratis, sin cuenta)
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/" + BUSINESS_EMAIL;
 
 const totalSteps = 8;
 let current = 1;
@@ -671,7 +670,14 @@ Política de privacidad aceptada: ${d.aceptaPrivacidad ? 'Sí' : 'No'}
 
   document.getElementById('waLink').href = 'https://wa.me/' + BUSINESS_WHATSAPP + '?text=' + encodeURIComponent(text);
   document.getElementById('emailLink').href = 'mailto:' + BUSINESS_EMAIL + '?subject=' + encodeURIComponent('Solicitud de evento - ' + d.nombre) + '&body=' + encodeURIComponent(text);
-  document.getElementById('agendaLink').href = AGENDA_URL;
+  const agendaEl = document.getElementById('agendaLink');
+  if(AGENDA_URL && !AGENDA_URL.startsWith('#')){
+    agendaEl.href = AGENDA_URL;
+    agendaEl.textContent = 'Ver disponibilidad y agendar';
+  } else {
+    const msg = 'Hola DJ ONYXS, quiero consultar disponibilidad para el ' + (d.fecha || 'día de mi evento') + '.';
+    agendaEl.href = 'https://wa.me/' + BUSINESS_WHATSAPP + '?text=' + encodeURIComponent(msg);
+  }
 
   const freqLabel = d.frecuencia === 'Mensual' ? 'mensual' : 'semanal';
   const nextIn = d.frecuencia === 'Mensual' ? 'en 1 mes' : 'en 7 días';
@@ -713,18 +719,15 @@ Política de privacidad aceptada: ${d.aceptaPrivacidad ? 'Sí' : 'No'}
 
 async function sendEmailAutomatico(d, text){
   const statusEl = document.getElementById('sendStatus');
-  if(FORMSPREE_ENDPOINT.includes('TU_ID_AQUI')){
-    statusEl.textContent = 'Falta conectar el correo automático (endpoint de Formspree pendiente).';
-    statusEl.className = 'send-status error';
-    return;
-  }
   try{
-    const res = await fetch(FORMSPREE_ENDPOINT, {
+    const res = await fetch(FORM_ENDPOINT, {
       method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: new URLSearchParams({
-        nombre: d.nombre, whatsapp: d.whatsapp, correo: d.correo,
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
         _subject: 'Solicitud de evento - ' + d.nombre,
+        _template: 'box',
+        _captcha: 'false',
+        nombre: d.nombre, whatsapp: d.whatsapp, correo: d.correo,
         mensaje: text
       })
     });
